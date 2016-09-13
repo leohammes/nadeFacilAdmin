@@ -1,0 +1,47 @@
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.2.0" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.2.0
+                                   		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.0.xsd">
+
+   <!-- Begin Example RewriteRules 
+   
+      // These are custom rewrite-rules, and are probably not necessary for your application.
+
+      <rewrite match="^/old-url/(\w+)/$" substitute="/new_url/$1/" redirect="301" />
+
+   -->
+   
+   <rewrite match="/index.xhtml" substitute="/" redirect="301" />
+   <rewrite match="/login.xhtml" substitute="/login" redirect="301" />
+   <rewrite match="/error.xhtml" substitute="/" redirect="301" />
+   
+   <!-- Begin UrlMappings 
+      // These are examples of URL mappings, and should be customized for your application.
+   -->
+   
+      <url-mapping id="login"> 
+          <pattern value="/login" />
+          <view-id>/login.xhtml</view-id>
+          <action>#{indexController.checkBeforeLogin()}</action>
+      </url-mapping>
+      
+      <url-mapping id="home"> 
+          <pattern value="/" />
+          <view-id>/index.xhtml</view-id>
+          <action>#{indexController.checkUserLogin()}</action>
+      </url-mapping> 
+      
+     <!-- <url-mapping id="viewCategory">
+          <pattern value="/store/#{ cat : bean.category }/" />
+          <view-id>/faces/shop/store.jsf</view-id> 
+      </url-mapping>
+      
+      <url-mapping id="viewItem">
+          <pattern value="/store/#{ cat : bean.category }/#{ iid : bean.itemId }/" />
+          <view-id>/faces/shop/item.jsf</view-id> 
+          <action>#{bean.loadItem}</action>
+      </url-mapping> -->
+   
+
+
+</pretty-config>

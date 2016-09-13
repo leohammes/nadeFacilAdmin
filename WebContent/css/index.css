@@ -1,0 +1,54 @@
+@CHARSET "ISO-8859-1";
+
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+.index-card {
+	width: 300px;
+	min-width: 280px;
+}
+
+.index-card .md-card-image {
+	height: 145px !important;
+}
+
+.cards-area {
+	width: 100%;
+	padding-top: 100px;
+	display: inline-flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.login-form {
+	width: 250px;
+}
+
+.login-form input {
+	float: right;
+}
+
+.login-form-container {
+	width: 100%;
+	height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+	width: 100%;
+	height: 60px;
+	background: #7abcff; /* Old browsers */
+	background: -moz-linear-gradient(left,  #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 */
+}
+
+.add-card {
+	background-color: rgb(42, 177, 42) !important;
+	align-self: center;
+}
