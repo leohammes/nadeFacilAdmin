@@ -1,7 +1,9 @@
-./metadata
-./settings
-./build
 *.class
+*.classpath
+
+build/
+.metadata/
+.settings/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
