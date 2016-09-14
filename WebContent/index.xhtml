@@ -27,10 +27,10 @@
 		        <h:commandButton class="onUnload" style="display:block;" value="Logout" action="#{indexController.unload}"/>
 	        </div>
 	        
-	        <ui:repeat value="#{hintsController.pageValues}" var="page">
-		        <h1>Cards da página #{hintsController.getPageDescription(page)}</h1>
+	        <ui:repeat value="#{mainController.pageValues}" var="page">
+		        <h1>Cards da página #{mainController.getPageDescription(page)}</h1>
 		        <div class="cards-area">
-			        <ui:repeat value="#{hintsController.hintsService.getHintsByPage(page)}" var="hint">
+			        <ui:repeat value="#{mainController.hintsService.getHintsByPage(page)}" var="hint">
 						<md-card class="index-card">
 						  <img src="#{hint.image.serverPath}#{hint.image.name}" class="md-card-image" alt="Nade Fácil"></img>
 						  <md-card-title>
@@ -44,14 +44,14 @@
 						    </p>
 						  </md-card-content>
 						  <md-card-actions layout="row" layout-align="end center">
-						    <h:commandButton class="md-button md-ink-ripple" value="Editar" action="#{hintsController.goToEditCardPage(hint.id)}"/>
+						    <h:commandButton class="md-button md-ink-ripple" value="Editar" action="#{mainController.goToEditCardPage(hint.id)}"/>
 						  </md-card-actions>
 						</md-card>
 					</ui:repeat>
 					<div title="Adicionar" ng-click="addAction($event)" data="#{page.ordinal()}" class="add-card md-fab md-button md-primary" ng-disabled="false" aria-label="Use Android">
 			          <span style="font-size: 36px;">+</span>
 			        </div>
-					<h:commandButton style="display:none;" class="add-action-#{page.ordinal()}" action="#{hintsController.goToAddCard(page)}"/>
+					<h:commandButton style="display:none;" class="add-action-#{page.ordinal()}" action="#{mainController.goToAddCard(page)}"/>
 				</div>
 			</ui:repeat>
         </h:form>

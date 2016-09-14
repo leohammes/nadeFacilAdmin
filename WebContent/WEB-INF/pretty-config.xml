@@ -31,6 +31,11 @@
           <action>#{indexController.checkUserLogin()}</action>
       </url-mapping> 
       
+      <url-mapping id="insertHint"> 
+         <pattern value="/inserir/#{hintsController.pageCode}" /> 
+         <view-id>/edit.xhtml</view-id>
+      </url-mapping>
+      
      <!-- <url-mapping id="viewCategory">
           <pattern value="/store/#{ cat : bean.category }/" />
           <view-id>/faces/shop/store.jsf</view-id> 
