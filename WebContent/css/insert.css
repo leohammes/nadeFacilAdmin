@@ -1,0 +1,5 @@
+.card-preview-area,
+.insert-form-area {
+	display: flex;
+	width: 50%;
+}

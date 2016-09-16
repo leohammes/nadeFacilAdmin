@@ -32,8 +32,8 @@
       </url-mapping> 
       
       <url-mapping id="insertHint"> 
-         <pattern value="/inserir/#{hintsController.pageCode}" /> 
-         <view-id>/edit.xhtml</view-id>
+         <pattern value="/inserir/#{mainController.currentPage}" /> 
+         <view-id>/insert.xhtml</view-id>
       </url-mapping>
       
      <!-- <url-mapping id="viewCategory">

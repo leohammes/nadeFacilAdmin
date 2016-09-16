@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:body>
+		<ui:composition template="/template.xhtml">
+			<ui:define name="content">
+				<h:panelGroup>
+					<link rel="stylesheet" type="text/css" href="../css/insert.css"></link>
+					<script src="./../js/main.js"></script>
+					
+					<div class="big-title border-bottom">
+						<h1>Card da página #{mainController.getPageDescription(mainController.currentPage)}</h1>
+					</div>
+					<p:growl id="mensagens" autoUpdate="true" />
+					<h:form enctype="multipart/form-data">
+						<div class="insert-form-area">
+							<p:fileUpload fileUploadListener="#{uploadImageController.upload}"
+								fileLimitMessage="Excedido Limite de arquivos"
+								cancelLabel="Cancelar" label="Escolher Arquivo"
+								uploadLabel="Enviar"
+								invalidFileMessage="Somente arquivos .jpg ou .png"
+								allowTypes="/(\.|\/)(jpe?g|png)$/"
+								value="#{uploadImageController.file}" />
+						</div>
+						<div class="card-preview-area"></div>
+					</h:form>
+				</h:panelGroup>
+			</ui:define>
+		</ui:composition>
+	</h:body>
+
+</html>
