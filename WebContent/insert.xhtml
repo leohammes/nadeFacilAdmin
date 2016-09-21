@@ -7,32 +7,73 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:body>
-		<ui:composition template="/template.xhtml">
-			<ui:define name="content">
-				<h:panelGroup>
-					<link rel="stylesheet" type="text/css" href="../css/insert.css"></link>
-					<script src="./../js/main.js"></script>
-					
-					<div class="big-title border-bottom">
-						<h1>Card da página #{mainController.getPageDescription(mainController.currentPage)}</h1>
+	<h:head>
+		<title>Nade Fácil Admin</title>
+     	<meta name="viewport" content="width=480, initial-scale=1.0"></meta>
+    	<link rel="stylesheet" type="text/css" href="/css/3rd/angular-material.min.css"></link>
+     	<link rel="stylesheet" type="text/css" href="/css/3rd/bootstrap-3.0.3.min.css"></link>
+     	<link rel="stylesheet" type="text/css" href="./../css/insert.css"></link>
+		<script src="/js/3rd/angular.min.js"></script>
+		<script src="/js/3rd/angular-animate.min.js"></script>
+		<script src="/js/3rd/angular-aria.min.js"></script>
+		<script src="/js/3rd/angular-messages.min.js"></script>
+		<script src="/js/3rd/ui-bootstrap.tpl.min.js"></script>
+		<script src="/js/3rd/angular-material.min.js"></script>
+		<script src="./../js/main.js"></script>
+	</h:head>
+	
+	<body ng-app="NadeFacilAdminApp" ng-controller="AdminCtrl">
+		<h:panelGroup>
+			<div class="big-title border-bottom">
+				<h1>Card da página #{mainController.getPageDescription(mainController.currentPage)}</h1>
+			</div>
+			<p:growl id="mensagens" autoUpdate="true" />
+			<h:form enctype="multipart/form-data">
+				<div class="insert-form-area">
+					<div class="form-item">
+						<p:fileUpload fileUploadListener="#{saveHintController.upload}"
+							fileLimitMessage="Excedido Limite de arquivos"
+							cancelLabel="Cancelar" label="Escolher Arquivo"
+							uploadLabel="Enviar"
+							update="card-image"
+							invalidFileMessage="Somente arquivos .jpg ou .png"
+							allowTypes="/(\.|\/)(jpe?g|png)$/"
+							value="#{saveHintController.file}">
+								
+							</p:fileUpload>
 					</div>
-					<p:growl id="mensagens" autoUpdate="true" />
-					<h:form enctype="multipart/form-data">
-						<div class="insert-form-area">
-							<p:fileUpload fileUploadListener="#{uploadImageController.upload}"
-								fileLimitMessage="Excedido Limite de arquivos"
-								cancelLabel="Cancelar" label="Escolher Arquivo"
-								uploadLabel="Enviar"
-								invalidFileMessage="Somente arquivos .jpg ou .png"
-								allowTypes="/(\.|\/)(jpe?g|png)$/"
-								value="#{uploadImageController.file}" />
-						</div>
-						<div class="card-preview-area"></div>
-					</h:form>
-				</h:panelGroup>
-			</ui:define>
-		</ui:composition>
-	</h:body>
-
+					<div class="form-item">
+						<h4>Título da Dica:</h4>
+						<p:inputText styleClass="form-item" maxlength="40" value="#{saveHintController.currentHint.title}"></p:inputText>
+					</div>
+					<div class="form-item">
+						<h4>Descrição curta da Dica:</h4>
+						<p:inputTextarea styleClass="form-item" autoResize="false" rows="5" value="#{saveHintController.currentHint.shortDescription}"></p:inputTextarea>
+					</div>
+					<div class="form-item">
+						<h4>Descrição da Dica:</h4>
+						<p:inputTextarea styleClass="form-item" autoResize="false" rows="10" value="#{saveHintController.currentHint.description}"></p:inputTextarea>
+					</div>
+				</div>
+				<div class="card-preview-area">
+					<md-card class="index-card">
+					  <h:graphicImage id="card-image" value="/images/?file=#{saveHintController.file.getFileName()}" class="md-card-image" alt="Nade Fácil"></h:graphicImage>
+					  <md-card-title>
+					    <md-card-title-text>
+					      <span class="md-headline">#{saveHintController.currentHint.title}</span>
+					    </md-card-title-text>
+					  </md-card-title>
+					  <md-card-content>
+					    <p>
+					      #{saveHintController.currentHint.shortDescription}
+					    </p>
+					  </md-card-content>
+					  <md-card-actions layout="row" layout-align="end center">
+				 	   <h:commandButton class="md-button md-ink-ripple" value="..."/>
+					  </md-card-actions>
+					</md-card>
+				</div>
+			</h:form>
+		</h:panelGroup>
+	</body>
 </html>

@@ -4,22 +4,33 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-
 import com.google.inject.servlet.RequestScoped;
+import com.google.inject.servlet.SessionScoped;
 
-@RequestScoped
+import br.com.nadefaciladmin.bean.Hint;
+import br.com.nadefaciladmin.bean.Image;
+
+@ViewScoped
 @ManagedBean
-public class UploadImageController {
+public class SaveHintController {
 	
+	private Hint currentHint;
 	private UploadedFile uploadedFile;
 
+	@PostConstruct
+	public void init() {
+	    if (currentHint == null) {
+	        currentHint = new Hint();
+	    }
+	}
+	
 	public UploadedFile getFile() {
 		return uploadedFile;
 	}
@@ -28,10 +39,19 @@ public class UploadImageController {
 		this.uploadedFile = file;
 	}
 
+	public Hint getCurrentHint() {
+		return currentHint;
+	}
+
+	public void setCurrentHint(Hint currentHint) {
+		this.currentHint = currentHint;
+	}
+	
 	public void upload(FileUploadEvent event) {
 		uploadedFile = event.getFile();
 		if (uploadedFile != null) {
-			File file = new File(System.getProperty("user.home") + "\\ImagesUploaded");
+			String serverPath = System.getProperty("user.home") + "\\ImagesUploaded";
+			File file = new File(serverPath);
 			if (!file.exists()) {
 				file.mkdirs();
 			}
@@ -42,6 +62,11 @@ public class UploadImageController {
 				fos.close();
 				FacesContext instance = FacesContext.getCurrentInstance();
 				instance.addMessage("mensagens", new FacesMessage(FacesMessage.SEVERITY_INFO, file.getName() + " anexado com sucesso", null));
+				
+				Image image = new Image();
+				image.setName(uploadedFile.getFileName());
+				image.setServerPath(serverPath);
+				currentHint.setImage(image);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

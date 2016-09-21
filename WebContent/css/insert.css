@@ -1,5 +1,32 @@
+body {
+	top: -20px;
+	padding: 10px;
+}
+
 .card-preview-area,
 .insert-form-area {
-	display: flex;
+	display: inline-flex;
 	width: 50%;
+}
+
+.card-preview-area {
+	float: right;
+	justify-content: center;
+}
+
+.md-card-image {
+	height: 145px !important;
+}
+
+.index-card {
+	width: 300px;
+    min-width: 280px;
+}
+
+.insert-form-area {
+	flex-wrap: wrap;
+}
+
+.form-item {
+	width: 100%;
 }
