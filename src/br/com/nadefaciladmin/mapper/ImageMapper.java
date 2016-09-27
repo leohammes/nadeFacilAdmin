@@ -15,7 +15,7 @@ public interface ImageMapper {
 	
 	final String SELECT_ALL = "SELECT * FROM IMAGE";
 	final String SELECT_BY_CODE = "SELECT * FROM IMAGE WHERE id = #{id}";
-	final String CREATE_IMAGE = "INSERT INTO IMAGE (name) VALUES (#{image.name})";
+	final String CREATE_IMAGE = "INSERT INTO IMAGE (name, server_path) VALUES (#{image.name}, #{image.serverPath})";
 	final String UPDATE_IMAGE = "UPDATE IMAGE SET name=#{image.name} where id=#{image.id};";
 	final String DELETE_IMAGE = "DELETE FROM IMAGE WHERE id=#{id};";
 
@@ -32,7 +32,7 @@ public interface ImageMapper {
 	Image selectByCode(int id);
 	
 	@Insert(CREATE_IMAGE)
-	boolean createImage(Image image);
+	int createImage(Image image);
 	
 	@Update(UPDATE_IMAGE)
 	boolean updateImage(Image image);

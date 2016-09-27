@@ -28,7 +28,7 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	@Override
-	public boolean createImage(Image image) {
+	public int createImage(Image image) {
 		return imageMapper.createImage(image);
 	}
 

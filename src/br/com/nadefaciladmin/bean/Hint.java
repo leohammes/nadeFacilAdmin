@@ -12,6 +12,10 @@ public class Hint {
 	private Date date;
 	private int pageCode;
 
+	public Hint() {
+		this.image = new Image();
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -10,7 +10,7 @@ public interface ImageService {
 	
 	public List<Image> getAllImages();
 	
-	public boolean createImage(Image image);
+	public int createImage(Image image);
 	
 	public boolean updateImage(Image image);
 	

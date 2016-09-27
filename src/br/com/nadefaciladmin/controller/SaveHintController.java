@@ -4,26 +4,28 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import com.google.inject.servlet.RequestScoped;
-import com.google.inject.servlet.SessionScoped;
-
 import br.com.nadefaciladmin.bean.Hint;
-import br.com.nadefaciladmin.bean.Image;
 
 @ViewScoped
 @ManagedBean
 public class SaveHintController {
 	
+	private String SERVER_PATH = System.getProperty("user.home") + "\\ImagesUploaded";
+	
 	private Hint currentHint;
 	private UploadedFile uploadedFile;
-
+	
 	@PostConstruct
 	public void init() {
 	    if (currentHint == null) {
@@ -47,11 +49,24 @@ public class SaveHintController {
 		this.currentHint = currentHint;
 	}
 	
+	public List<String> getImages() {
+		ArrayList<String> images = new ArrayList<String>();
+		String serverPath = System.getProperty("user.home") + "\\ImagesUploaded";
+		File file = new File(serverPath);
+		if (file.exists() && file.isDirectory()) {
+			for (String path : file.list()) {
+				if (path.endsWith(".png") || path.endsWith(".jpg")) {
+					images.add(path);
+				}
+			}
+		}
+		return images;
+	}
+	
 	public void upload(FileUploadEvent event) {
 		uploadedFile = event.getFile();
 		if (uploadedFile != null) {
-			String serverPath = System.getProperty("user.home") + "\\ImagesUploaded";
-			File file = new File(serverPath);
+			File file = new File(SERVER_PATH);
 			if (!file.exists()) {
 				file.mkdirs();
 			}
@@ -61,12 +76,8 @@ public class SaveHintController {
 				fos.write(event.getFile().getContents());
 				fos.close();
 				FacesContext instance = FacesContext.getCurrentInstance();
+				setImageProperties(uploadedFile.getFileName());
 				instance.addMessage("mensagens", new FacesMessage(FacesMessage.SEVERITY_INFO, file.getName() + " anexado com sucesso", null));
-				
-				Image image = new Image();
-				image.setName(uploadedFile.getFileName());
-				image.setServerPath(serverPath);
-				currentHint.setImage(image);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -75,5 +86,23 @@ public class SaveHintController {
 			}
 
 		}
+	}
+	
+	public void setImageName() {
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String imageName = params.get("name");
+		setImageProperties(imageName);
+	}
+	
+	public void save() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		MainController mainController = context.getApplication().evaluateExpressionGet(context, "#{mainController}", MainController.class);
+		mainController.getImagesService().createImage(currentHint.getImage());
+		mainController.getHintsService().createHint(currentHint);
+	}
+	
+	private void setImageProperties(String imageName) {
+		this.currentHint.getImage().setName(imageName);
+		this.currentHint.getImage().setServerPath(SERVER_PATH);
 	}
 }

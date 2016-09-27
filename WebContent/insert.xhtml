@@ -28,20 +28,32 @@
 				<h1>Card da página #{mainController.getPageDescription(mainController.currentPage)}</h1>
 			</div>
 			<p:growl id="mensagens" autoUpdate="true" />
-			<h:form enctype="multipart/form-data">
+			<h:form styleClass="flex-box" enctype="multipart/form-data">
 				<div class="insert-form-area">
-					<div class="form-item">
-						<p:fileUpload fileUploadListener="#{saveHintController.upload}"
-							fileLimitMessage="Excedido Limite de arquivos"
-							cancelLabel="Cancelar" label="Escolher Arquivo"
-							uploadLabel="Enviar"
-							update="card-image"
-							invalidFileMessage="Somente arquivos .jpg ou .png"
-							allowTypes="/(\.|\/)(jpe?g|png)$/"
-							value="#{saveHintController.file}">
-								
+					<p:layoutUnit styleClass="form-item" position="center">
+						<h4 style="margin-left: 10px;">Escolha da imagem:</h4>
+						<div class="form-item gallery-content">
+							<p:galleria value="#{saveHintController.images}" panelWidth="400" panelHeight="200" var="name" styleClass="gallery-cards" autoPlay="false" showCaption="false">
+						    	<p:commandButton value="Selecionar #{name}" update="@form" actionListener="#{saveHintController.setImageName}" styleClass="ui-priority-primary default-button select-image">
+						    		<f:param name="name" value="#{name}" id="name"></f:param>
+						    	</p:commandButton>
+						    	<h:graphicImage value="/images/?file=#{name}" title="#{name}"/>
+							</p:galleria>
+						</div>
+						
+						<div class="flex-box">
+							<p:fileUpload fileUploadListener="#{saveHintController.upload}"
+								fileLimitMessage="Excedido Limite de imagens"
+								cancelLabel="Cancelar" label="Escolher nova imagem"
+								uploadLabel="Enviar"
+								update="card-image"
+								invalidFileMessage="Somente arquivos .jpg ou .png"
+								allowTypes="/(\.|\/)(jpe?g|png)$/"
+								styleClass="form-item upload-image"
+								value="#{saveHintController.file}">
 							</p:fileUpload>
-					</div>
+						</div>
+					</p:layoutUnit>
 					<div class="form-item">
 						<h4>Título da Dica:</h4>
 						<p:inputText styleClass="form-item" maxlength="40" value="#{saveHintController.currentHint.title}"></p:inputText>
@@ -55,20 +67,24 @@
 						<p:inputTextarea styleClass="form-item" autoResize="false" rows="10" value="#{saveHintController.currentHint.description}"></p:inputTextarea>
 					</div>
 				</div>
+				<div class="middle-section-area flex-box">
+					<p:commandButton value="Preview" id="preview" update="@form" styleClass="ui-priority-primary default-button" />
+					<p:commandButton value="Salvar" id="save" styleClass="ui-priority-primary default-button btn-save" action="#{saveHintController.save}" />
+				</div>
 				<div class="card-preview-area">
 					<md-card class="index-card">
-					  <h:graphicImage id="card-image" value="/images/?file=#{saveHintController.file.getFileName()}" class="md-card-image" alt="Nade Fácil"></h:graphicImage>
+					  <h:graphicImage id="card-image" value="/images/?file=#{saveHintController.currentHint.image.name}" class="md-card-image" alt="Nade Fácil"></h:graphicImage>
 					  <md-card-title>
 					    <md-card-title-text>
 					      <span class="md-headline">#{saveHintController.currentHint.title}</span>
 					    </md-card-title-text>
 					  </md-card-title>
 					  <md-card-content>
-					    <p>
+					    <div class="with-fade">
 					      #{saveHintController.currentHint.shortDescription}
-					    </p>
+					    </div>
 					  </md-card-content>
-					  <md-card-actions layout="row" layout-align="end center">
+					  <md-card-actions layout="row" layout-align="end center" class="layout-align-end-center layout-row">
 				 	   <h:commandButton class="md-button md-ink-ripple" value="..."/>
 					  </md-card-actions>
 					</md-card>

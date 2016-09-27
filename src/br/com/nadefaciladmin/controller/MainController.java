@@ -10,6 +10,7 @@ import com.google.inject.Injector;
 import br.com.nadefaciladmin.application.Page;
 import br.com.nadefaciladmin.bean.Hint;
 import br.com.nadefaciladmin.service.HintService;
+import br.com.nadefaciladmin.service.ImageService;
 
 
 @RequestScoped
@@ -22,6 +23,13 @@ public class MainController {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 		Injector injector = (Injector) servletContext.getAttribute("injector");
 		HintService service = injector.getInstance(HintService.class);
+		return service;
+	}
+	
+	public ImageService getImagesService() {
+		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+		Injector injector = (Injector) servletContext.getAttribute("injector");
+		ImageService service = injector.getInstance(ImageService.class);
 		return service;
 	}
 	

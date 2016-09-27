@@ -3,10 +3,48 @@ body {
 	padding: 10px;
 }
 
+.flex-box {
+	display: flex;
+}
+
+.ui-galleria {
+    padding-top: 5px;
+}
+
+.ui-galleria .ui-galleria-panel img {
+    height: 145px !important;
+    top: calc(50% - 95px);
+    position: relative;
+}
+
+.ui-galleria-panel {
+    text-align: center;
+}
+
+.gallery-content {
+	justify-content: center;
+	display: inline-flex;
+}
+
+.gallery-content .select-image span {
+    overflow: hidden;
+    max-width: 250px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .card-preview-area,
 .insert-form-area {
 	display: inline-flex;
 	width: 50%;
+}
+
+.middle-section-area {
+	display: inline-flex;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-preview-area {
@@ -21,6 +59,7 @@ body {
 .index-card {
 	width: 300px;
     min-width: 280px;
+    max-height: 500px;
 }
 
 .insert-form-area {
@@ -29,4 +68,36 @@ body {
 
 .form-item {
 	width: 100%;
+}
+
+.default-button {
+	height: 50px;
+}
+
+.btn-save {
+	margin-top: 10px;
+	background-color: rgb(42, 177, 42) !important;
+}
+
+.upload-image {
+    margin: 5px 10px 5px 10px;
+}
+
+.with-fade{
+    text-overflow: ellipsis;
+    position: relative;
+    max-height: 215px;
+    overflow: hidden;
+	width: 100%;
+    content: "";
+}
+
+.with-fade:before {
+    background:linear-gradient(transparent 150px, white);
+    position:absolute;
+    height:100%;    
+    content:'';
+    width:100%;
+    left:0;
+    top:0;
 }
