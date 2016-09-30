@@ -21,6 +21,11 @@ public class ImageServiceImpl implements ImageService {
 	public Image getImage(int id) {
 		return imageMapper.selectByCode(id);
 	}
+	
+	@Override
+	public Image getImage(String name) {
+		return imageMapper.selectByName(name);
+	}
 
 	@Override
 	public List<Image> getAllImages() {
@@ -28,12 +33,17 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	@Override
-	public int createImage(Image image) {
-		return imageMapper.createImage(image);
+	public Image createImage(Image image) {
+		Image tempImage = getImage(image.getName());
+		if (tempImage == null) {
+			imageMapper.createImage(image);
+			return image;
+		}
+		return tempImage;
 	}
 
 	@Override
-	public boolean updateImage(Image image) {
+	public Image updateImage(Image image) {
 		return imageMapper.updateImage(image);
 	}
 

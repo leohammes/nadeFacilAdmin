@@ -8,6 +8,26 @@ body {
 .index-card {
 	width: 300px;
 	min-width: 280px;
+    max-height: 500px;
+}
+
+.with-fade{
+    text-overflow: ellipsis;
+    position: relative;
+    max-height: 215px;
+    overflow: hidden;
+	width: 100%;
+    content: "";
+}
+
+.with-fade:before {
+    background:linear-gradient(transparent 150px, white);
+    position:absolute;
+    height:100%;    
+    content:'';
+    width:100%;
+    left:0;
+    top:0;
 }
 
 .index-card .md-card-image {

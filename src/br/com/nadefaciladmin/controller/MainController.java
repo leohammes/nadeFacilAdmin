@@ -6,6 +6,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
 import com.google.inject.Injector;
 import br.com.nadefaciladmin.application.Page;
 import br.com.nadefaciladmin.bean.Hint;
@@ -56,6 +58,14 @@ public class MainController {
 
 	public Page[] getPageValues() {
 		return Page.values();
+	}
+	
+	public String getImageServletUrl() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String url = request.getRequestURL().toString();
+		String baseURL = url.substring(0, url.length() - request.getRequestURI().length()) + "/";
+
+		return baseURL + "/images/";
 	}
 	
 	public String getPageDescription(int pageId) {

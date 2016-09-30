@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -47,10 +48,10 @@ public interface HintMapper {
 	Hint selectByCode(int id);
 	
 	@Insert(CREATE_HINT)
-	boolean createHint(Hint hint);
+	boolean createHint(@Param("hint") final Hint hint);
 	
 	@Update(UPDATE_HINT)
-	boolean updateHint(Hint hint);
+	boolean updateHint(@Param("hint") final Hint hint);
 	
 	@Delete(DELETE_HINT)
 	boolean deleteHint(int id);

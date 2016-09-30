@@ -27,34 +27,29 @@
 		<h:form>
 			<div class="header">
 				<span>Página para editar o site nadefacil.com.br</span>
-				<h:commandButton class="onUnload" style="display:block;"
-					value="Logout" action="#{indexController.unload}" />
+				<h:commandButton class="onUnload" style="display:block;" value="Logout" action="#{indexController.unload}" />
 			</div>
 	
 			<ui:repeat value="#{mainController.pageValues}" var="page">
 				<h1>Cards da página #{mainController.getPageDescription(page)}</h1>
 				<div class="cards-area">
 					<ui:repeat value="#{mainController.hintsService.getHintsByPage(page)}" var="hint">
-						<md-card class="index-card">
-							<img src="#{hint.image.serverPath}#{hint.image.name}" class="md-card-image" alt="Nade Fácil"></img>
-							<md-card-title>
-								<md-card-title-text>
-									<span class="md-headline">#{hint.title}</span>
-								</md-card-title-text>
-							</md-card-title>
-							<md-card-content>
-								<p>#{hint.shortDescription}</p>
-							</md-card-content>
-							<md-card-actions layout="row" layout-align="end center">
-								<h:commandButton class="md-button md-ink-ripple" value="Editar" action="#{mainController.goToEditCardPage(hint.id)}" />
-							</md-card-actions>
-						</md-card>
+					    <ui:insert name="card" >
+						  <ui:include src="/card.xhtml">
+						  	<ui:param name="src" value="#{mainController.getImageServletUrl()}?file=#{hint.image.name}" />
+						  	<ui:param name="title" value="#{hint.title}" />
+						  	<ui:param name="shortDescription" value="#{hint.shortDescription}" />
+						  	<ui:param name="btnTitle" value="Editar" />
+						  	<ui:param name="btnAction" value="#{mainController.goToEditCardPage(hint.id)}" />
+						  </ui:include>
+					    </ui:insert>
 					</ui:repeat>
-					<div title="Adicionar" ng-click="addAction($event)"
-						data="#{page.ordinal()}"
-						class="add-card md-fab md-button md-primary" ng-disabled="false"
-						aria-label="Use Android">
-						<span style="font-size: 36px;">+</span>
+					<div title="Adicionar"
+						 ng-click="addAction($event)"
+						 data="#{page.ordinal()}"
+						 class="add-card md-fab md-button md-primary" ng-disabled="false"
+						 aria-label="Use Android">
+						     <span style="font-size: 36px;">+</span>
 					</div>
 					<h:commandButton style="display:none;" class="add-action-#{page.ordinal()}" action="#{mainController.goToAddCard(page)}" />
 				</div>

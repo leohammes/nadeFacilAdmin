@@ -8,11 +8,13 @@ public interface ImageService {
 	
 	public Image getImage(int id);
 	
+	public Image getImage(String name);
+	
 	public List<Image> getAllImages();
 	
-	public int createImage(Image image);
+	public Image createImage(Image image);
 	
-	public boolean updateImage(Image image);
+	public Image updateImage(Image image);
 	
 	public boolean deleteImage(int imageId);
 }

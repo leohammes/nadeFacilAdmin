@@ -13,9 +13,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import br.com.nadefaciladmin.bean.Hint;
+import br.com.nadefaciladmin.bean.Image;
 
 @ViewScoped
 @ManagedBean
@@ -29,10 +32,12 @@ public class SaveHintController {
 	@PostConstruct
 	public void init() {
 	    if (currentHint == null) {
+	    	MainController mainController = getMainController();
 	        currentHint = new Hint();
+	        currentHint.setPageCode(mainController.getCurrentPage());
 	    }
 	}
-	
+
 	public UploadedFile getFile() {
 		return uploadedFile;
 	}
@@ -95,14 +100,20 @@ public class SaveHintController {
 	}
 	
 	public void save() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		MainController mainController = context.getApplication().evaluateExpressionGet(context, "#{mainController}", MainController.class);
-		mainController.getImagesService().createImage(currentHint.getImage());
+		MainController mainController = getMainController();
+		currentHint.setImage(mainController.getImagesService().createImage(currentHint.getImage()));
 		mainController.getHintsService().createHint(currentHint);
+		FacesContext instance = FacesContext.getCurrentInstance();
+		instance.addMessage("mensagens", new FacesMessage(FacesMessage.SEVERITY_INFO, "Card salvo com sucesso", null));
 	}
 	
 	private void setImageProperties(String imageName) {
 		this.currentHint.getImage().setName(imageName);
 		this.currentHint.getImage().setServerPath(SERVER_PATH);
+	}
+	
+	private MainController getMainController() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		return context.getApplication().evaluateExpressionGet(context, "#{mainController}", MainController.class);
 	}
 }
