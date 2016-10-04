@@ -9,12 +9,10 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import br.com.nadefaciladmin.bean.Hint;
@@ -31,10 +29,12 @@ public class SaveHintController {
 	
 	@PostConstruct
 	public void init() {
-	    if (currentHint == null) {
-	    	MainController mainController = getMainController();
+		MainController mainController = getMainController();
+	    if (mainController.getHint() == null) {
 	        currentHint = new Hint();
 	        currentHint.setPageCode(mainController.getCurrentPage());
+	    } else {
+	    	currentHint = mainController.getHint();
 	    }
 	}
 
@@ -99,12 +99,35 @@ public class SaveHintController {
 		setImageProperties(imageName);
 	}
 	
-	public void save() {
+	public void saveOrUpdate() {
+		if (currentHint.getId() != 0) {
+			updateHint();
+		} else {
+			save();
+		}
+	}
+	
+	private void save() {
 		MainController mainController = getMainController();
 		currentHint.setImage(mainController.getImagesService().createImage(currentHint.getImage()));
 		mainController.getHintsService().createHint(currentHint);
+		showMessage(FacesMessage.SEVERITY_INFO, "Card salvo com sucesso");
+	}
+	
+	private void updateHint() {
+		Image image = getMainController().getImagesService().getImage(currentHint.getImage().getName());
+		if (image != null) {
+			currentHint.setImage(image);
+		} else {
+			currentHint.setImage(getMainController().getImagesService().createImage(currentHint.getImage()));
+		}
+		getMainController().getHintsService().updateHint(currentHint);
+		showMessage(FacesMessage.SEVERITY_INFO, "Card salvo com sucesso");
+	}
+	
+	private void showMessage(Severity type, String message) {
 		FacesContext instance = FacesContext.getCurrentInstance();
-		instance.addMessage("mensagens", new FacesMessage(FacesMessage.SEVERITY_INFO, "Card salvo com sucesso", null));
+		instance.addMessage("mensagens", new FacesMessage(type, message, null));
 	}
 	
 	private void setImageProperties(String imageName) {

@@ -36,6 +36,11 @@
          <view-id>/insert.xhtml</view-id>
       </url-mapping>
       
+      <url-mapping id="updateHint"> 
+         <pattern value="/card/#{saveHintController.currentHint.id}" /> 
+         <view-id>/insert.xhtml</view-id>
+      </url-mapping>
+      
      <!-- <url-mapping id="viewCategory">
           <pattern value="/store/#{ cat : bean.category }/" />
           <view-id>/faces/shop/store.jsf</view-id> 

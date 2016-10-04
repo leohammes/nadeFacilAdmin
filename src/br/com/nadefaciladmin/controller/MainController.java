@@ -1,26 +1,29 @@
 package br.com.nadefaciladmin.controller;
 
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.google.inject.Injector;
+
 import br.com.nadefaciladmin.application.Page;
 import br.com.nadefaciladmin.bean.Hint;
 import br.com.nadefaciladmin.service.HintService;
 import br.com.nadefaciladmin.service.ImageService;
 
 
-@RequestScoped
+@SessionScoped
 @ManagedBean
 public class MainController {
 	
 	private int currentPage;
-
+	private Hint hint;
+	
 	public HintService getHintsService() {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 		Injector injector = (Injector) servletContext.getAttribute("injector");
@@ -45,13 +48,16 @@ public class MainController {
 	
 	public String goToEditCardPage(int cardId) throws Exception {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		ec.redirect("/admin/editar/card/" + cardId);
+		setHint(getHintsService().getHint(cardId));
+		setCurrentPage(hint.getPageCode());
+		ec.redirect("/admin/card/" + cardId);
 		return "/";
 	}
 	
 	public String goToAddCard(Page page) throws Exception {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		setCurrentPage(page.ordinal());
+		setHint(null);
 		ec.redirect("/admin/inserir/" + page.ordinal());
 		return "/";
 	}
@@ -105,5 +111,13 @@ public class MainController {
 
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
+	}
+
+	public Hint getHint() {
+		return hint;
+	}
+
+	public void setHint(Hint hint) {
+		this.hint = hint;
 	}
 }
