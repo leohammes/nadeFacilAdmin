@@ -5,6 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
   	<md-card class="index-card">
+  		<h:commandButton rendered="#{btnTitle2 != null}" title="#{btnTitle2Hint}" class="top-button md-button md-fab md-mini" value="#{btnTitle2}" action="#{formController.deleteCard(hint.id)}" />
 		<h:graphicImage id="card-image" value="#{src}" class="md-card-image" alt="Nade Fácil"></h:graphicImage>
 		<md-card-title>
 			<md-card-title-text>

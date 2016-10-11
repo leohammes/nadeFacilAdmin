@@ -9,8 +9,8 @@
 	<p:layoutUnit styleClass="form-item" position="center">
 		<h4 style="margin-left: 10px;">Escolha da imagem:</h4>
 		<div class="form-item gallery-content">
-			<p:galleria value="#{saveHintController.images}" panelWidth="400" panelHeight="200" var="name" styleClass="gallery-cards" autoPlay="false" showCaption="false">
-		    	<p:commandButton value="Selecionar #{name}" update="@form" actionListener="#{saveHintController.setImageName}" styleClass="ui-priority-primary default-button select-image">
+			<p:galleria value="#{formController.images}" panelWidth="400" panelHeight="200" var="name" styleClass="gallery-cards" autoPlay="false" showCaption="false">
+		    	<p:commandButton value="Selecionar #{name}" update="@form" actionListener="#{formController.setImageName}" styleClass="ui-priority-primary default-button select-image">
 		    		<f:param name="name" value="#{name}" id="name"></f:param>
 		    	</p:commandButton>
 		    	<h:graphicImage value="#{mainController.getImageServletUrl()}?file=#{name}" title="#{name}"/>
@@ -18,7 +18,7 @@
 		</div>
 		
 		<div class="flex-box">
-			<p:fileUpload fileUploadListener="#{saveHintController.upload}"
+			<p:fileUpload fileUploadListener="#{formController.upload}"
 				fileLimitMessage="Excedido Limite de imagens"
 				cancelLabel="Cancelar" label="Escolher nova imagem"
 				uploadLabel="Enviar"
@@ -26,20 +26,20 @@
 				invalidFileMessage="Somente arquivos .jpg ou .png"
 				allowTypes="/(\.|\/)(jpe?g|png)$/"
 				styleClass="form-item upload-image"
-				value="#{saveHintController.file}">
+				value="#{formController.file}">
 			</p:fileUpload>
 		</div>
 	</p:layoutUnit>
 	<div class="form-item">
 		<h4>Título da Dica:</h4>
-		<p:inputText styleClass="form-item" maxlength="40" value="#{saveHintController.currentHint.title}"></p:inputText>
+		<p:inputText styleClass="form-item" maxlength="40" value="#{formController.currentHint.title}"></p:inputText>
 	</div>
 	<div class="form-item">
 		<h4>Descrição curta da Dica:</h4>
-		<p:inputTextarea styleClass="form-item" autoResize="false" rows="5" value="#{saveHintController.currentHint.shortDescription}"></p:inputTextarea>
+		<p:inputTextarea styleClass="form-item" autoResize="false" rows="5" value="#{formController.currentHint.shortDescription}"></p:inputTextarea>
 	</div>
 	<div class="form-item">
 		<h4>Descrição da Dica:</h4>
-		<p:inputTextarea styleClass="form-item" autoResize="false" rows="10" value="#{saveHintController.currentHint.description}"></p:inputTextarea>
+		<p:inputTextarea styleClass="form-item" autoResize="false" rows="10" value="#{formController.currentHint.description}"></p:inputTextarea>
 	</div>
 </html>

@@ -37,7 +37,7 @@
       </url-mapping>
       
       <url-mapping id="updateHint"> 
-         <pattern value="/card/#{saveHintController.currentHint.id}" /> 
+         <pattern value="/card/#{formController.currentHint.id}" /> 
          <view-id>/insert.xhtml</view-id>
       </url-mapping>
       

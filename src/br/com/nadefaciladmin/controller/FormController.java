@@ -20,7 +20,7 @@ import br.com.nadefaciladmin.bean.Image;
 
 @ViewScoped
 @ManagedBean
-public class SaveHintController {
+public class FormController {
 	
 	private String SERVER_PATH = System.getProperty("user.home") + "\\ImagesUploaded";
 	
@@ -93,6 +93,15 @@ public class SaveHintController {
 		}
 	}
 	
+	public void deleteCard(int hintId) {
+		boolean deleted = getMainController().getHintsService().deleteHint(hintId);
+		if (deleted) {
+			showMessage(FacesMessage.SEVERITY_INFO, "Card excluído");
+		} else {
+			showMessage(FacesMessage.SEVERITY_FATAL, "Erro ao Excluir card");
+		}
+	}
+	
 	public void setImageName() {
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String imageName = params.get("name");
@@ -100,6 +109,9 @@ public class SaveHintController {
 	}
 	
 	public void saveOrUpdate() {
+		Image image = getMainController().getImagesService().getImage(currentHint.getImage().getName());
+		currentHint.setImage(image != null ? image : getMainController().getImagesService().createImage(currentHint.getImage()));
+		
 		if (currentHint.getId() != 0) {
 			updateHint();
 		} else {
@@ -109,18 +121,12 @@ public class SaveHintController {
 	
 	private void save() {
 		MainController mainController = getMainController();
-		currentHint.setImage(mainController.getImagesService().createImage(currentHint.getImage()));
 		mainController.getHintsService().createHint(currentHint);
 		showMessage(FacesMessage.SEVERITY_INFO, "Card salvo com sucesso");
 	}
 	
 	private void updateHint() {
-		Image image = getMainController().getImagesService().getImage(currentHint.getImage().getName());
-		if (image != null) {
-			currentHint.setImage(image);
-		} else {
-			currentHint.setImage(getMainController().getImagesService().createImage(currentHint.getImage()));
-		}
+		
 		getMainController().getHintsService().updateHint(currentHint);
 		showMessage(FacesMessage.SEVERITY_INFO, "Card salvo com sucesso");
 	}

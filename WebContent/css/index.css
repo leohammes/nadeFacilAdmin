@@ -9,6 +9,7 @@ body {
 	width: 300px;
 	min-width: 280px;
     max-height: 500px;
+    display: inline-flex;
 }
 
 .with-fade{
@@ -32,6 +33,18 @@ body {
 
 .index-card .md-card-image {
 	height: 145px !important;
+}
+
+.index-card:hover .top-button {
+	display: block;
+}
+
+.top-button {
+    align-self: flex-end;
+    position: absolute;
+    margin-top: -20px;
+    margin-left: 20px;
+    display: none;
 }
 
 .cards-area {
