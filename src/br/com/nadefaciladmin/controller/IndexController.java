@@ -73,16 +73,16 @@ public class IndexController {
 	public void checkBeforeLogin() throws IOException {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 		Login login = (Login) servletContext.getAttribute("login");
-		//if (login != null) {
+		if (login != null) {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/admin");
-		//}
+		}
 	}
 	
 	public void checkUserLogin() throws IOException {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
 		Login login = (Login) servletContext.getAttribute("login");
 		if (login == null) {
-			//FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login");
 		}
 	}
 	

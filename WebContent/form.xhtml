@@ -32,14 +32,19 @@
 	</p:layoutUnit>
 	<div class="form-item">
 		<h4>Título da Dica:</h4>
-		<p:inputText styleClass="form-item" maxlength="40" value="#{formController.currentHint.title}"></p:inputText>
+		<p:inputText required="true" requiredMessage="Informe um título" styleClass="form-item" maxlength="40" value="#{formController.currentHint.title}"></p:inputText>
 	</div>
 	<div class="form-item">
-		<h4>Descrição curta da Dica:</h4>
-		<p:inputTextarea styleClass="form-item" autoResize="false" rows="5" value="#{formController.currentHint.shortDescription}"></p:inputTextarea>
+		<h4>Descrição:</h4>
+		<p:inputTextarea required="true" requiredMessage="Preencha a descrição" styleClass="form-item" autoResize="false" rows="5" value="#{formController.currentHint.shortDescription}"></p:inputTextarea>
 	</div>
-	<div class="form-item">
-		<h4>Descrição da Dica:</h4>
-		<p:inputTextarea styleClass="form-item" autoResize="false" rows="10" value="#{formController.currentHint.description}"></p:inputTextarea>
+	<div class="form-item justified">
+		<h4>Conteúdo:</h4> <p:commandButton value="Clique para editar o conteúdo" type="button" onclick="PF('editor-dlg').show();" />
+		<p:dialog header="Conteúdo da dica" styleClass="editor-dlg" widgetVar="editor-dlg" height="500" width="900" >
+		    <p:editor styleClass="editor-area" id="editor" widgetVar="editorWidget" value="#{formController.currentHint.description}" width="600" />
+			<div class="dlg-bottom">
+				<p:commandButton value="Salvar" id="save-description" styleClass="ui-priority-primary default-button btn-save" action="#{formController.saveOrUpdate}" />
+			</div>
+		</p:dialog>
 	</div>
 </html>

@@ -34,11 +34,13 @@
       <url-mapping id="insertHint"> 
          <pattern value="/inserir/#{mainController.currentPage}" /> 
          <view-id>/insert.xhtml</view-id>
+         <action>#{indexController.checkUserLogin()}</action>
       </url-mapping>
       
       <url-mapping id="updateHint"> 
          <pattern value="/card/#{formController.currentHint.id}" /> 
          <view-id>/insert.xhtml</view-id>
+         <action>#{indexController.checkUserLogin()}</action>
       </url-mapping>
       
      <!-- <url-mapping id="viewCategory">
