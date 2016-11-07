@@ -30,33 +30,18 @@
 				<span>Página para editar o site nadefacil.com.br</span>
 				<h:commandButton class="onUnload" style="display:block;" value="Logout" action="#{indexController.unload}" />
 			</div>
-			<p:growl id="mensagens" autoUpdate="true" />
-			<ui:repeat value="#{mainController.pageValues}" var="page">
-				<h1>Cards da página #{mainController.getPageDescription(page)}</h1>
-				<div class="cards-area">
-					<ui:repeat value="#{mainController.hintsService.getHintsByPage(page)}" var="hint">
-					    <ui:insert name="card" >
-						  <ui:include src="/card.xhtml">
-						  	<ui:param name="src" value="#{mainController.getImageServletUrl()}?file=#{hint.image.name}" />
-						  	<ui:param name="title" value="#{hint.title}" />
-						  	<ui:param name="shortDescription" value="#{hint.shortDescription}" />
-						  	<ui:param name="btnTitle" value="Editar" />
-						  	<ui:param name="btnAction" value="#{mainController.goToEditCardPage(hint.id)}" />
-						  	<ui:param name="btnTitle2" value="X" />
-						  	<ui:param name="btnTitle2Hint" value="Excluir" />
-						  </ui:include>
-					    </ui:insert>
-					</ui:repeat>
-					<div title="Adicionar"
-						 ng-click="addAction($event)"
-						 data="#{page.ordinal()}"
-						 class="add-card md-fab md-button md-primary" ng-disabled="false"
-						 aria-label="Use Android">
-						     <span style="font-size: 36px;">+</span>
-					</div>
-					<h:commandButton style="display:none;" class="add-action-#{page.ordinal()}" action="#{mainController.goToAddCard(page)}" />
+			<h1>Escolha o que você deseja editar/criar:</h1>
+			<div class="options-area">
+				<div class="edit-option">
+					Imagens do site
 				</div>
-			</ui:repeat>
+				<div class="edit-option">
+					Dicas da semana
+				</div>
+				<div class="edit-option">
+					Outro
+				</div>
+			</div>
 		</h:form>
 	</body>
 </html>

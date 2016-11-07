@@ -85,20 +85,20 @@ public class MainController {
 	}
 	
 	public String getPageDescription(Page page) {
-		switch (page.ordinal()) {
-		case 0:
+		switch (page) {
+		case CONTACT:
 			return "de Contatos";
-		case 1:
+		case GALLERY:
 			return "de Galeria de Imagens";
-		case 2:
+		case HINTS:
 			return "das Dicas da Semana";
-		case 3:
+		case HISTORY:
 			return "da História da academia";
-		case 4:
+		case INDEX:
 			return "inicial";
-		case 5:
+		case MODES:
 			return "das modalidades";
-		case 6:
+		case SCHEDULE:
 			return "da agenda da academia";
 		default:
 			return "Página não mapeada no Enumeration";

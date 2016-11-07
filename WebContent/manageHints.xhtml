@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>Nade Fácil Admin</title>
+		<meta name="viewport" content="width=480, initial-scale=1.0"></meta>
+		<link rel="stylesheet" type="text/css" href="/css/3rd/angular-material.min.css"></link>
+		<link rel="stylesheet" type="text/css" href="/css/3rd/bootstrap-3.0.3.min.css"></link>
+		<link rel="stylesheet" type="text/css" href="./css/index.css"></link>
+		<script src="/js/3rd/jquery-2.2.3.min.js"></script>
+		<script src="/js/3rd/angular.min.js"></script>
+		<script src="/js/3rd/angular-animate.min.js"></script>
+		<script src="/js/3rd/angular-aria.min.js"></script>
+		<script src="/js/3rd/angular-messages.min.js"></script>
+		<script src="/js/3rd/ui-bootstrap.tpl.min.js"></script>
+		<script src="/js/3rd/angular-material.min.js"></script>
+		<script src="./js/main.js"></script>
+	</h:head>
+	
+	<body ng-app="NadeFacilAdminApp" ng-controller="AdminCtrl">
+		<h:form>
+			<p:growl id="mensagens" autoUpdate="true" />
+			<ui:repeat value="#{mainController.pageValues}" var="page">
+				<h1>Cards da página #{mainController.getPageDescription(page)}</h1>
+				<div class="cards-area">
+					<ui:repeat value="#{mainController.hintsService.getHintsByPage(page)}" var="hint">
+					    <ui:insert name="card" >
+						  <ui:include src="/card.xhtml">
+						  	<ui:param name="src" value="#{mainController.getImageServletUrl()}?file=#{hint.image.name}" />
+						  	<ui:param name="title" value="#{hint.title}" />
+						  	<ui:param name="shortDescription" value="#{hint.shortDescription}" />
+						  	<ui:param name="btnTitle" value="Editar" />
+						  	<ui:param name="btnAction" value="#{mainController.goToEditCardPage(hint.id)}" />
+						  	<ui:param name="btnTitle2" value="X" />
+						  	<ui:param name="btnTitle2Hint" value="Excluir" />
+						  </ui:include>
+					    </ui:insert>
+					</ui:repeat>
+					<div title="Adicionar"
+						 ng-click="addAction($event)"
+						 data="#{page.ordinal()}"
+						 class="add-card md-fab md-button md-primary" ng-disabled="false"
+						 aria-label="Use Android">
+						     <span style="font-size: 36px;">+</span>
+					</div>
+					<h:commandButton style="display:none;" class="add-action-#{page.ordinal()}" action="#{mainController.goToAddCard(page)}" />
+				</div>
+			</ui:repeat>
+		</h:form>
+	</body>
+</html>

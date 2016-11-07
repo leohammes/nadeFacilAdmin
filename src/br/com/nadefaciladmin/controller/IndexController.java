@@ -1,6 +1,7 @@
 package br.com.nadefaciladmin.controller;
 
 import java.io.IOException;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -8,7 +9,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+
 import com.google.inject.Injector;
+
 import br.com.nadefaciladmin.bean.Login;
 import br.com.nadefaciladmin.service.LoginService;
 
@@ -32,11 +36,12 @@ public class IndexController {
 		LoginController loginController = new LoginController();
 		FacesContext context = FacesContext.getCurrentInstance();
 	    ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+	    HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		Injector injector = (Injector) servletContext.getAttribute("injector");
 		LoginService service = injector.getInstance(LoginService.class);
 		Login login = service.login(userName);
 		if (loginController.doLogin(service.login(userName), userPass)) {
-			servletContext.setAttribute("login", login);
+			session.setAttribute("login", login);
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/admin");
 		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário ou senha incorretos", null));
@@ -71,16 +76,16 @@ public class IndexController {
 	}
 	
 	public void checkBeforeLogin() throws IOException {
-		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-		Login login = (Login) servletContext.getAttribute("login");
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		Login login = (Login) session.getAttribute("login");
 		if (login != null) {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/admin");
 		}
 	}
 	
 	public void checkUserLogin() throws IOException {
-		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-		Login login = (Login) servletContext.getAttribute("login");
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		Login login = (Login) session.getAttribute("login");
 		if (login == null) {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/login");
 		}

@@ -43,6 +43,12 @@
          <action>#{indexController.checkUserLogin()}</action>
       </url-mapping>
       
+      <url-mapping id="manageHintsPage"> 
+         <pattern value="/manageHints" /> 
+         <view-id>/manageHints.xhtml</view-id>
+         <action>#{indexController.checkUserLogin()}</action>
+      </url-mapping>
+      
      <!-- <url-mapping id="viewCategory">
           <pattern value="/store/#{ cat : bean.category }/" />
           <view-id>/faces/shop/store.jsf</view-id> 

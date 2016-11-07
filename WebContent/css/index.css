@@ -85,3 +85,18 @@ body {
 	background-color: rgb(42, 177, 42) !important;
 	align-self: center;
 }
+
+.options-area {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.edit-option {
+    width: 20%;
+    min-width: 200px;
+    height: 20%;
+    min-height: 200px;
+    background-color: aquamarine;
+    cursor: pointer;
+}
