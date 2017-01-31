@@ -44,8 +44,14 @@
       </url-mapping>
       
       <url-mapping id="manageHintsPage"> 
-         <pattern value="/manageHints" /> 
+         <pattern value="/hints" /> 
          <view-id>/manageHints.xhtml</view-id>
+         <action>#{indexController.checkUserLogin()}</action>
+      </url-mapping>
+      
+      <url-mapping id="manageImagesPage"> 
+         <pattern value="/images" /> 
+         <view-id>/manageImages.xhtml</view-id>
          <action>#{indexController.checkUserLogin()}</action>
       </url-mapping>
       

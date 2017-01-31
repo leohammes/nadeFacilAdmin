@@ -99,4 +99,11 @@ body {
     min-height: 200px;
     background-color: aquamarine;
     cursor: pointer;
+    display: flex;
+}
+
+.edit-option-btn {
+	background-color: transparent;
+    width: 100%;
+    border: none;
 }

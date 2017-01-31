@@ -46,16 +46,6 @@ public class IndexController {
 		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário ou senha incorretos", null));
 		}
-		/*FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request =  (HttpServletRequest) context.getExternalContext().getRequest();
-	    try {
-	    	request.getSession();
-	        request.login(userName, userPass);
-	        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Logado", null));
-	    } catch (ServletException e) {
-	        e.printStackTrace();
-	    }
-	    return "/";*/
 		return "/";
 	}
 
@@ -73,6 +63,14 @@ public class IndexController {
 
 	public void setUserPass(String userPass) {
 		this.userPass = userPass;
+	}
+	
+	public void goToManageImagesPage() throws IOException {
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/images");
+	}
+	
+	public void goToManageHintsPage() throws IOException {
+		FacesContext.getCurrentInstance().getExternalContext().redirect("/admin/hints");
 	}
 	
 	public void checkBeforeLogin() throws IOException {
