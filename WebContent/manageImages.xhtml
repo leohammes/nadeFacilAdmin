@@ -7,26 +7,39 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:head>
-		<title>Nade Fácil Admin</title>
-		<meta name="viewport" content="width=480, initial-scale=1.0"></meta>
-		<link rel="stylesheet" type="text/css" href="/css/3rd/angular-material.min.css"></link>
-		<link rel="stylesheet" type="text/css" href="/css/3rd/bootstrap-3.0.3.min.css"></link>
-		<link rel="stylesheet" type="text/css" href="./css/index.css"></link>
-		<script src="/js/3rd/jquery-2.2.3.min.js"></script>
-		<script src="/js/3rd/angular.min.js"></script>
-		<script src="/js/3rd/angular-animate.min.js"></script>
-		<script src="/js/3rd/angular-aria.min.js"></script>
-		<script src="/js/3rd/angular-messages.min.js"></script>
-		<script src="/js/3rd/ui-bootstrap.tpl.min.js"></script>
-		<script src="/js/3rd/angular-material.min.js"></script>
-		<script src="./js/main.js"></script>
-	</h:head>
-	
-	<body ng-app="NadeFacilAdminApp" ng-controller="AdminCtrl">
-		<h:form>
-		
-			Aqui será destinado à página para alterar/inserir imagens
-		</h:form>
-	</body>
+<h:head>
+	<title>Nade Fácil Admin</title>
+	<meta name="viewport" content="width=480, initial-scale=1.0"></meta>
+	<link rel="stylesheet" type="text/css"
+		href="/css/3rd/angular-material.min.css"></link>
+	<link rel="stylesheet" type="text/css"
+		href="/css/3rd/bootstrap-3.0.3.min.css"></link>
+	<link rel="stylesheet" type="text/css" href="./css/index.css"></link>
+	<script src="/js/3rd/jquery-2.2.3.min.js"></script>
+	<script src="/js/3rd/angular.min.js"></script>
+	<script src="/js/3rd/angular-animate.min.js"></script>
+	<script src="/js/3rd/angular-aria.min.js"></script>
+	<script src="/js/3rd/angular-messages.min.js"></script>
+	<script src="/js/3rd/ui-bootstrap.tpl.min.js"></script>
+	<script src="/js/3rd/angular-material.min.js"></script>
+	<script src="./js/main.js"></script>
+</h:head>
+
+<body ng-app="NadeFacilAdminApp" ng-controller="AdminCtrl">
+	<h:form>
+		<h:graphicImage id="card-image" value="#{imagesController.file}" class="md-card-image" alt="Nade Fácil"></h:graphicImage>
+		<div class="flex-box">
+			<p:fileUpload fileUploadListener="#{imagesController.upload}"
+				fileLimitMessage="Excedido Limite de imagens" cancelLabel="Cancelar"
+				mode="simple"
+				update="@form"
+				skinSimple="true"
+				label="Escolher nova imagem" uploadLabel="Enviar"
+				invalidFileMessage="Somente arquivos .jpg ou .png"
+				allowTypes="/(\.|\/)(jpe?g|png)$/"
+				styleClass="form-item upload-image" value="#{imagesController.file}">
+			</p:fileUpload>
+		</div>
+	</h:form>
+</body>
 </html>
