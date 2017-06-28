@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+  	<md-card class="index-card">
+		<h:graphicImage id="card-image" value="#{src}" class="md-card-image" alt="Nade Fácil"></h:graphicImage>
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">#{title}</span>
+			</md-card-title-text>
+		</md-card-title>
+		<md-card-content>
+			<div class="with-fade">
+				#{shortDescription}
+			</div>
+		</md-card-content>
+		<md-card-actions layout="row" layout-align="end center" class="layout-align-end-center layout-row">
+			<h:commandButton class="md-button md-ink-ripple" value="#{btnTitle}" action="#{hintsController.readMoreAction(hintId)}" />
+		</md-card-actions>
+	</md-card>
+</html>

@@ -25,21 +25,36 @@
 	<script src="./js/main.js"></script>
 </h:head>
 
-<body ng-app="NadeFacilAdminApp" ng-controller="AdminCtrl">
-	<h:form>
-		<h:graphicImage id="card-image" value="#{imagesController.file}" class="md-card-image" alt="Nade Fácil"></h:graphicImage>
-		<div class="flex-box">
-			<p:fileUpload fileUploadListener="#{imagesController.upload}"
-				fileLimitMessage="Excedido Limite de imagens" cancelLabel="Cancelar"
-				mode="simple"
-				update="@form"
-				skinSimple="true"
-				label="Escolher nova imagem" uploadLabel="Enviar"
-				invalidFileMessage="Somente arquivos .jpg ou .png"
-				allowTypes="/(\.|\/)(jpe?g|png)$/"
-				styleClass="form-item upload-image" value="#{imagesController.file}">
-			</p:fileUpload>
-		</div>
-	</h:form>
-</body>
+	<body ng-app="NadeFacilAdminApp" ng-controller="AdminCtrl">
+		<h:form>
+	    	<ui:composition template="/template/template.xhtml">
+	    		<ui:define name="content">
+	    		
+	    			<form class="carousel-controller" static="true" ng-controller="IndexCtrl">
+	    				<div style="min-width: 500px; min-height: 300px;" class="slide-show">
+			    			<carousel>
+							  <slide ng-repeat="slide in slides">
+							    <img class="carousel-image" ng-src="{{slide.image}}"></img>
+							  </slide>
+							</carousel>
+						</div>
+					</form>
+					
+	    			<h:graphicImage id="card-image" value="#{imagesController.file}" class="md-card-image" alt="Nade Fácil"></h:graphicImage>
+					<div class="flex-box">
+						<p:fileUpload fileUploadListener="#{imagesController.upload}"
+							fileLimitMessage="Excedido Limite de imagens" cancelLabel="Cancelar"
+							mode="simple"
+							update="@form"
+							skinSimple="true"
+							label="Escolher nova imagem" uploadLabel="Enviar"
+							invalidFileMessage="Somente arquivos .jpg ou .png"
+							allowTypes="/(\.|\/)(jpe?g|png)$/"
+							styleClass="form-item upload-image" value="#{imagesController.file}">
+						</p:fileUpload>
+					</div>
+	    		</ui:define>
+	    	</ui:composition>
+		</h:form>
+	</body>
 </html>
