@@ -39,20 +39,6 @@
 							</carousel>
 						</div>
 					</form>
-					
-	    			<h:graphicImage id="card-image" value="#{imagesController.file}" class="md-card-image" alt="Nade Fácil"></h:graphicImage>
-					<div class="flex-box">
-						<p:fileUpload fileUploadListener="#{imagesController.upload}"
-							fileLimitMessage="Excedido Limite de imagens" cancelLabel="Cancelar"
-							mode="simple"
-							update="@form"
-							skinSimple="true"
-							label="Escolher nova imagem" uploadLabel="Enviar"
-							invalidFileMessage="Somente arquivos .jpg ou .png"
-							allowTypes="/(\.|\/)(jpe?g|png)$/"
-							styleClass="form-item upload-image" value="#{imagesController.file}">
-						</p:fileUpload>
-					</div>
 	    		</ui:define>
 	    	</ui:composition>
 		</h:form>

@@ -3,11 +3,35 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       >
+    <h:head>
+    </h:head>
     <body>
 	    <ui:composition>
  			<div class="header">
+ 				<h:form enctype="multipart/form-data">
+ 					<div class="header-img-selection">
+ 						<p:fileUpload
+ 							id="image-file-upload"
+ 							fileUploadListener="#{imagesController.replaceImage}"
+							label="Arquivo" 
+ 							uploadLabel="Enviar"
+ 							cancelLabel="Cancelar"
+ 							fileLimit="1"
+ 							fileLimitMessage="Excedido Limite de imagens" 
+							invalidFileMessage="Somente arquivos .jpg ou .png"
+							skinSimple="true"
+							allowTypes="/(\.|\/)(jpe?g|png)$/"
+							value="#{imagesController.file}"
+							styleClass="form-item upload-image">
+							<f:attribute name="imageName" value="header-image-3.jpg" />
+						</p:fileUpload>
+ 					</div>
+ 				</h:form>
  			</div>
 	    </ui:composition>
     </body>
-</html>
+</html>	
